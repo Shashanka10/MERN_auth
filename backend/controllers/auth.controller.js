@@ -2,10 +2,10 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 import {generateTokenAndSetCookie} from "../utils/generateTokenAndSetCookie.js";
-import { sendVerificationEmail } from "../mailtrap/emails.js";
-import { sendWelcomeEmail } from "../mailtrap/emails.js";
-import { sendPasswordResetEmail } from "../mailtrap/emails.js";
-import { sendResendSuccessEmail } from "../mailtrap/emails.js";
+import { sendVerificationEmail } from "../nodemailer/emails.js";
+import { sendWelcomeEmail } from "../nodemailer/emails.js";
+import { sendPasswordResetEmail } from "../nodemailer/emails.js";
+import { sendResendSuccessEmail } from "../nodemailer/emails.js";
 import {User} from "../models/user.model.js"
 
 export const signup = async(req,res)=> {

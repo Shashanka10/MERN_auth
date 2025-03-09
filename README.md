@@ -34,7 +34,7 @@ A full-stack MERN (MongoDB, Express.js, React.js, Node.js) application that impl
   - MongoDB (for database)
   - Mongoose (for MongoDB object modeling)
   - JSON Web Tokens (JWT) (for authentication)
-  - MailTrap (for sending emails)
+  - Nodemailer (for sending emails)
 - **Other Tools**:
   - Postman (for API testing)
   - Git (for version control)
@@ -73,6 +73,10 @@ Follow these steps to set up the project locally:
    PORT
    MONGODB_URI
    JWT_SECRET
-   MAILTRAP_TOKEN
+   SMTP_HOST
+   SMTP_PORT
+   SMTP_SECURE
+   SMTP_USER
+   SMTP_PASS
    CLIENT_URL
    NODE_ENV
