@@ -1,6 +1,8 @@
 import {create} from "zustand";
 import axios from "axios";
 
+const API_URL = "https://mern-auth-backend-xdcw.onrender.com"
+
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({
@@ -14,7 +16,7 @@ export const useAuthStore = create((set) => ({
     signup: async(email, password, name)=> {
         set({isLoading:true, error:null});
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/signup", {email, password, name});
+            const response = await axios.post(`${API_URL}/api/auth/signup`, {email, password, name});
             set({user: response.data.user, isAuthenticated:true, isLoading:false});
         } catch (error) {
             set({error: error.response.data.message || "Error signing up", isLoading:false});
@@ -25,7 +27,7 @@ export const useAuthStore = create((set) => ({
     verifyEmail: async(code)=>{
         set({isLoading:true, error:null});
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/verify-email", {code});
+            const response = await axios.post(`${API_URL}/api/auth/verify-email`, {code});
             set({user: response.data.user, isAuthenticated:true, isLoading:false});
             return response.data;
         } catch (error) {
@@ -38,7 +40,7 @@ export const useAuthStore = create((set) => ({
         // await new Promise((resolve)=> setTimeout(resolve,1000));
         set({isCheckingAuth: true, error: null})
         try {
-            const response = await axios.get("http://localhost:5000/api/auth/check-auth");
+            const response = await axios.get(`${API_URL}/api/auth/check-auth`);
             set({isAuthenticated:true, user: response.data.user, isCheckingAuth: false});
         } catch (error) {
             set({error: null, isCheckingAuth:false, isAuthenticated: false});
@@ -48,7 +50,7 @@ export const useAuthStore = create((set) => ({
     login: async(email, password)=> {
         set({isLoading:true, error:null});
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/login", {email, password});
+            const response = await axios.post(`${API_URL}/api/auth/login`, {email, password});
             set({isAuthenticated:true, user: response.data.user, error:null, isLoading:false});
         } catch (error) {
             set({error: error.response.data.message || "Error logging in", isLoading:false});
@@ -59,7 +61,7 @@ export const useAuthStore = create((set) => ({
     logout: async()=> {
         set({isLoading:true, error:null});
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/logout");
+            const response = await axios.post(`${API_URL}/api/auth/logout`);
             set({isAuthenticated:false, user: null, error:null, isLoading:false});
         } catch (error) {
             set({error: error.response.data.message || "Error logging out", isLoading:false});
@@ -70,7 +72,7 @@ export const useAuthStore = create((set) => ({
     forgotPassword: async(email)=> {
         set({isLoading:true, error:null});
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/forgot-password", {email});
+            const response = await axios.post(`${API_URL}/api/auth/forgot-password`, {email});
             set({message: response.data.message, isLoading: false});
         } catch (error) {
             set({error: error.response.data.message || "Error sending reset password email", isLoading:false});
@@ -81,7 +83,7 @@ export const useAuthStore = create((set) => ({
     resetPassword: async(token, password)=> {
         set({isLoading:true, error:null});
         try {
-            const response = await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, {password});
+            const response = await axios.post(`${API_URL}/api/auth/reset-password/${token}`, {password});
             set({message: response.data.message, isLoading: false});
         } catch (error) {
             set({error: error.response.data.message || "Error resetting password", isLoading:false});
